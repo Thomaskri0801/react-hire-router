@@ -1,4 +1,5 @@
 import PeopleList from './components/PeopleList'
+import HiredPeopleList from './components/HiredPeopleList'
 
 function Dashboard(props) {
   return (
@@ -9,7 +10,7 @@ function Dashboard(props) {
       </section>
       <section>
         <h2>Hired People</h2>
-        <PeopleList people={props.hiredPeople} />
+        <HiredPeopleList people={props.hiredPeople} />
       </section>
     </main>
   )

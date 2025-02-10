@@ -15,8 +15,16 @@ export default function App() {
   }, [])
 
   const handleHired = (person) => {
-    setHiredPeople((prevHired) => [...prevHired, person]);
-    setPeopleList(peopleList.filter(p => p.email !== person.email))
+    setHiredPeople((hiredPerson) => {
+      const isAlreadyHired = hiredPerson.some((p) => p.email === person.email);
+  
+      if (isAlreadyHired) {
+        return hiredPerson.map((p) => (p.email === person.email ? person : p));
+      } else {
+        setPeopleList(peopleList.filter(p => p.email !== person.email))
+        return [...hiredPerson, person];
+      }
+    });
   }
 
   return (
@@ -34,6 +42,7 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Dashboard peopleList={peopleList} hiredPeople={hiredPeople}/>}/>
         <Route path='/view/:id' element={<PersonProfile peopleList={peopleList} handleHired={handleHired}/>}/>
+        <Route path='/edit/:id' element={<PersonProfile peopleList={hiredPeople} handleHired={handleHired}/>}/>
       </Routes>
     </div>
   )
